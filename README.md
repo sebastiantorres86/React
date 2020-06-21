@@ -19,6 +19,7 @@ npm i -g create-react-app
 ```
 create-react-app first-app
 ```
+
 - Este último comando creará una carpeta `first-app` (esta tarea puede demorar unos cuantos minutos), y dentro todo el contenido necesario para ejecutar nuestra primer app con React.
 
 - Una vez que finalizó el proceso anterior, podemos ingresar a la carpeta
@@ -49,9 +50,10 @@ first-app/
         logo.svg
         serviceWorker.js
 ```
-  - node_modules: es la carpeta donde se guardan las dependencias del proyecto
-  - public: es la carpeta raíz del proyecto donde se encuentra el index.html
-  - src: es el directorio donde vamos a colocar los archivos de nuestros componentes
+
+- node_modules: es la carpeta donde se guardan las dependencias del proyecto
+- public: es la carpeta raíz del proyecto donde se encuentra el index.html
+- src: es el directorio donde vamos a colocar los archivos de nuestros componentes
 
 - Para ejecutar la app de ejemplo que configura por defecto `create-react-app`, solo tenemos que ejecutar `npm start`. Una vez que termine, vamos a poder acceder desde un navegador a la dirección `localhost:3000`.
 
@@ -126,4 +128,145 @@ class App extends Component {
 exports default App;
 ```
 
-- *El código del ejemplo desarrollado hasta ahora se encuentra [aquí](https://github.com/sebastiantorres86/React/blob/master/ejemplos/01-first-app/first-app/src/App.js)*
+- _El código del ejemplo desarrollado hasta ahora se encuentra [aquí](https://github.com/sebastiantorres86/React/blob/master/ejemplos/01-first-app/first-app/src/App.js)_
+
+---
+## JSX
+
+- La sintáxis de HTML que vemos en el componente App, no es realmente HTML, sino JSX. Es una sintáxis extendida de Javascript que nos permite escribir código JS con etiquetas del estilo HTML.
+- Al igual que en HTML, las etiquetas que usamos en JSX pueden tener atributos y elementos hijos. Si un atributo está escrito entre llaves `{}`, entonces el valor es una expresión de Javascript.
+- Aclaración: JSX no usa comillas para encerrar a las etiquetas de HTML
+
+#### Ejemplo
+
+```
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>¡Hola Mundo!</h1>
+      </div>
+    );
+  }
+}
+```
+
+- Como JSX es más cercano a Javascript que HTML, React usa camelCase como convención para las propiedades en lugar de los atributos HTML.
+- Por ejemplo, el atributo `class` se convierte en `className`, `tabindex` se convierte en `tabIndex` y `onclick` se convierte en `onClick` (entre otros).
+- Vamos a modificar un poco nuestro ejemplo del Hola Mundo 
+
+#### Ejemplo:
+
+```
+class App extends Component {
+  render() {
+    const elementoH1 = <h1>¡Hola Mundo!</h1>
+    return {
+      <div>
+        {elementoH1}
+      </div>
+    }
+  }
+}
+```
+
+- Movimos, a una variable llamada `elementoH1`, una porción del código JSX.
+- Para que JSX funcione, es necesario que todos los elementos que usemos esten encerrados en una sola etiqueta padre.
+La expresiones dinámicas, o expresiones de Javascript, se engloban dentro de las llaves `{}`
+
+#### Ejemplo 1
+
+```
+class App extends Component {
+  render() {
+    const nombre = 'Ada'
+    return (
+      <div>
+        <h1>¡Hola {nombre}!</h1>
+      </div>
+    )
+  }
+}
+```
+
+#### Ejemplo 2
+
+```
+class App extends Component {
+  render() {
+    const persona = {
+      nombre: 'Ada',
+      apellido: 'Lovelace'
+    }
+    return (
+      <div>
+        <h1>¡Hola {persona.nombre} {persona.apellido}!</h1>
+      </div>
+    )
+  }
+}
+```
+
+## Componentes
+
+- Los componentes permiten separar la web en piezas inependientes y reutilizables. Son los ladrillos de cualquier aplicación desarrollada con React, y una aplicación típica puede tener muchos.
+- En pocas palabras, un componente es una clase o función de Javascript que puede aceptar algún input (llamados props) y retorna elementos de React, describiendo como una sección de la UI debería verse.
+
+### Primer componente
+
+- Creá un archivo llamaddo `Hola.js` dentro de la carpeta `./src`
+- Copia el siguiente contenido:
+
+```
+import React, { Component } from 'react';
+
+class Hola extends Component {
+  render() {
+    return (
+      <div>
+        <h1>¡Hola Mundo!</h1>
+      </div>
+    );
+  }
+}
+
+exports default Hola;
+```
+
+- Para poder ver el componente que creamos, vamos a cambiar el contenido de `App.js`.
+- En JSX, los elementos HTML (etiquetas) también representan a los componentes definidos por el usuario.
+- Debería quedar de la siguiente forma:
+
+```
+import React, { Component } from React;
+// acá estamos "importando" el componente "Hola"
+import Hola from './Hola'
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        {/* para usar el componente, podemor usarlo como cualquier otra etiqueta de HTML, recordando que el nombre comienza con mayuscula */}
+        <Hola />
+      </div>
+    )
+  }
+}
+```
+- En la segunda línea estamos `importando` nuestro componente.
+
+- En la línea `<Hola />` estamos utilizando nuestra "etiqueta" propia.
+
+- Veamos que pasó en este ejemplo:
+
+  i. En la función `render()` de App utilizamos la etiqueta `<Hola />`.
+  ii. React llama/ejecuta al componente `Hola`.
+  iii. Nuestro componente `Hola` retorna un elemento
+    <h1>¡Hola Mundo!</h1>
+
+    como resultado de la función `render()`
+
+- **IMPORTANTE**: Los nombre de los componente siempre tienen que empezar con mayúscula.
+
+- *El código de este ejemplo está [aquí]()*
+
