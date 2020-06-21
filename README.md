@@ -268,5 +268,5 @@ class App extends Component {
 
 - **IMPORTANTE**: Los nombre de los componente siempre tienen que empezar con mayúscula.
 
-- *El código de este ejemplo está [aquí]()*
+- *El código de este ejemplo está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/02-componentes)*
 
