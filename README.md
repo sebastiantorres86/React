@@ -270,3 +270,72 @@ class App extends Component {
 
 - *El código de este ejemplo está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/02-componentes)*
 
+## Props y State
+
+- Hay dos tipos de datos en React: `props` y `state`
+- La diferencia es complicada de ver al principio, pero con la práctica se va a empezar a notar más la separación entre cada término
+- La principal diferencia es que el estado es **privado** y solo puede ser modificado por el mismo componente.
+- Las propiedades son externas, y no pueden ser editadas por el componente que las recibe.
+- Las `props` son información pasadas para abajo desde un componente padre a un componente hijo.
+- Entonces, mientras que las `props` no pueden ser modificadas directamente (*si se pueden modificar indirectamente, que lo vamos a ver más adelante*), si puede modificar su `**propio**` estado.
+
+### Propiedades
+
+- Las propiedades de un componente pueden definirse como atributos de configuración de ese componente
+- Las propiedades son recibidas desde un nivel superior y son inmutables
+- Esto quiere decir que las propiedades se pasan de un componente padre a un componente hijo
+- Para acceder a la información que nos llega en una propiedad, vamos a utilizar una variable `props`
+
+#### Ejemplo:
+
+- Si continuamos con el ejemplo anterior `02-componentes`
+- Si queremos que el mensaje sea `¡Hola {nombre}!`, y la variable nombre sea configurable, podemos pasarsela mediante una prop
+- Vamos a modificar un poco el código del componente `Hola`:
+
+```
+import React, { Component } from 'react';
+
+class Hola extends Component {
+  render() {
+    return (
+      <div>
+        {/* En lugar de poner un nombre fijo, utlizamos un nombre que nos vaya a llegar a traves de un atributo nombre */}
+        <h1>¡Hola {this.props.nombre}!</h1>
+      </div>
+    )
+  }
+}
+```
+
+- Las `props` no son más que los atributos de un elemento, y pueden ser de cualquier tipo de dato
+- Entonces, en `App.js`, el código quedaría
+
+```
+class App extends Component {
+  render() {
+    const elNombreQueQueremosMostrar = 'Ada Lovelace'
+
+    return (
+      <div>
+        <Hola nombre={elNombreQueQueremosMostrar} />
+      </div>
+    )
+  }
+}
+```
+
+- Con las llaves, a nuestro atributo `nombre` le estamos pasando una expresión de JS (en este caso, el valor de una variable)
+- Si a un atributo le queremos pasar simplemente un texto/string, podemos usar las comillas
+
+```
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Hola nombre="Ada Lovelace">
+      </div>
+    )
+  }
+}
+```
+- *El código de de ejemplo está [aquí]()*
