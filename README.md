@@ -131,6 +131,7 @@ exports default App;
 - _El código del ejemplo desarrollado hasta ahora se encuentra [aquí](https://github.com/sebastiantorres86/React/blob/master/ejemplos/01-first-app/first-app/src/App.js)_
 
 ---
+
 ## JSX
 
 - La sintáxis de HTML que vemos en el componente App, no es realmente HTML, sino JSX. Es una sintáxis extendida de Javascript que nos permite escribir código JS con etiquetas del estilo HTML.
@@ -153,7 +154,7 @@ class App extends Component {
 
 - Como JSX es más cercano a Javascript que HTML, React usa camelCase como convención para las propiedades en lugar de los atributos HTML.
 - Por ejemplo, el atributo `class` se convierte en `className`, `tabindex` se convierte en `tabIndex` y `onclick` se convierte en `onClick` (entre otros).
-- Vamos a modificar un poco nuestro ejemplo del Hola Mundo 
+- Vamos a modificar un poco nuestro ejemplo del Hola Mundo
 
 #### Ejemplo:
 
@@ -172,7 +173,7 @@ class App extends Component {
 
 - Movimos, a una variable llamada `elementoH1`, una porción del código JSX.
 - Para que JSX funcione, es necesario que todos los elementos que usemos esten encerrados en una sola etiqueta padre.
-La expresiones dinámicas, o expresiones de Javascript, se engloban dentro de las llaves `{}`
+  La expresiones dinámicas, o expresiones de Javascript, se engloban dentro de las llaves `{}`
 
 #### Ejemplo 1
 
@@ -253,6 +254,7 @@ class App extends Component {
   }
 }
 ```
+
 - En la segunda línea estamos `importando` nuestro componente.
 
 - En la línea `<Hola />` estamos utilizando nuestra "etiqueta" propia.
@@ -264,11 +266,11 @@ class App extends Component {
   iii. Nuestro componente `Hola` retorna un elemento
     <h1>¡Hola Mundo!</h1>
 
-    como resultado de la función `render()`
+  como resultado de la función `render()`
 
 - **IMPORTANTE**: Los nombre de los componente siempre tienen que empezar con mayúscula.
 
-- *El código de este ejemplo está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/02-componentes)*
+- _El código de este ejemplo está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/02-componentes)_
 
 ## Props y State
 
@@ -277,7 +279,7 @@ class App extends Component {
 - La principal diferencia es que el estado es **privado** y solo puede ser modificado por el mismo componente.
 - Las propiedades son externas, y no pueden ser editadas por el componente que las recibe.
 - Las `props` son información pasadas para abajo desde un componente padre a un componente hijo.
-- Entonces, mientras que las `props` no pueden ser modificadas directamente (*si se pueden modificar indirectamente, que lo vamos a ver más adelante*), si puede modificar su `**propio**` estado.
+- Entonces, mientras que las `props` no pueden ser modificadas directamente (_si se pueden modificar indirectamente, que lo vamos a ver más adelante_), si puede modificar su `**propio**` estado.
 
 ### Propiedades
 
@@ -338,4 +340,120 @@ class App extends Component {
   }
 }
 ```
-- *El código de este ejemplo está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/03-componentes-props/first-app)*
+
+- _El código de este ejemplo está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/03-componentes-props/first-app)_
+
+### Estado
+
+- Otra forma de guardar información en React, es utilizando el estado del componente.
+- A diferencia de las `props` (que son inmutables), el estado es **mutable**.
+- Entonces si la información de tu aplicación va a cambiar (por ejemplo, basada en interacciones con el usuario), tiene que ser almacenada en el estado de algún componente.
+- Como el estado es **privado** de solo un componente, no puede compartirse para abajo con componentes hijos.
+- Si necesitamos pasar información a componentes hijos, tenemos que pasarselas mediante `props`
+- Para inicializar el estado, vamos a hacerlo en una nueva función `constructor` dentro del componente que queremos que tenga `state`
+
+#### Ejemplo:
+
+```
+// El import es una función nativa de JS que me permite imortar módulos o librerías
+import React, { Component } from 'react';
+
+// class y el nombre del componente (en mayúsculas)
+class App extends Component {
+  // Creamos la función constructor con el parámetro props
+  constructor (props)  {
+    // Llamamos a la función super pasándole las props
+    super(props)
+
+    // Creamos el estado del componente
+    // El estado es simplemente un objeto de JS que va a guardar datos para operar o mostrar en el render
+    // Con el 'this' nos referimos estrictamente al componente que estamos creando
+    // Entonces a nuestro componente App le creamos un estado
+    // La propiedad SIEMPRE tiene qiue llamarse state, y el objeto puede tener cualquier cantidad y tipo de propiedades
+    this.state = {
+      nombre: 'Ada Lovelace'
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {/* Para mostrar una propiedad del estado, siempre accedemos con 'this.state' y el nombre de la propiedad que queremos ver */}
+        <h1>¡Hola, {this.state.nombre}!</h1>
+      </div>
+    )
+  }
+}
+
+// export del componente que acabamos de crear
+// tiene que ser el mismo nombre que el que definimos después del class
+export default App;
+```
+
+- Para modificar el estado, vamos a utilizar la función `setState`
+- La función recibe por parámetro un objeto con las propiedades que queremos modificar
+
+#### Ejemplo:
+
+- Agregamos un setTimeout para ejecutar un cambio de state a los 5 segundos
+- Cuando `mutamos` el nombre, se va a modificar automáticamente el DOM, por lo que no tenemos que hacer nada para ver el cambio en la web
+
+```
+// El import es una función nativa de JS que me permite importar módulos o librerias
+import React, { Component } from 'react';
+
+// class y el nombre del componente (en mayúsculas)
+class App extends Component {
+  // creamos la función constructor con el parámetro props
+  cosntructor (props) {
+    // llamamos a la función super pasándole las props
+    super(props)
+
+    // Creamos el estado del componente
+    // El estado es simplemente un objeto de JS que va a guardar datos o mostrar en el render
+    // Con el 'this' nos referimos estrictamente al componente que estamos creando
+    // Entonces a nuestro componente App le creamos un estado
+    // La propiedad SIEMPRE tiene que llamarse state, y el objeto puede tener cualquier cantidad y tipo de propiedades
+    this.state = {
+      nombre: 'Ada Lovelace'
+    }
+
+    // A los 5 segundos ejecutamos una función que edita la propiedad 'nombre' del state
+    // Pasamos la función como una arrow function para que el 'this' que utilizamos adentro siga funcionando bien
+    // Después de ejecutarse la función setState, se vuelve a ejecutar la función render() que tenemos abajo y modifica lo que vemos en el HTML
+    setTimeout(() => {
+      this.setState({
+        nombre: 'Grace Hopper'
+      })
+    }, 5000)
+  }
+  render() {
+    // bind
+    return (
+      <div>
+        {/* Para mostrar una propiedad del estado, siempre accedemos con 'this.state' y el nombre de la propiedad que queremos ver */}
+        <h1>¡Hola, {this.state.nombre}!</h1>
+      </div>
+    )
+  }
+}
+
+// export del componente que acabamos de crear
+// Tiene  que tener el mismo nombre que el que definimos después del 'class'
+export default App;
+```
+
+- *El ejemplo de esta sección está [aquí]()*
+
+- Los componentes que tienen estado, se denominan **stateful components**.
+
+- Tenemos que tratar de tener la menor cantidad de **stateful components** posible, y tratar de minimizar la información que guardamos en ese estado.
+
+- Si un componente abajo en la jerarquía (algún componente hijo) necesita acceder a información del estado, podemos pasarla con las `props`
+
+- Para definir en donde vamos a crear un estado, podemos hacernos las siguientes preguntas:
+
+  - Identificar cada componente que pinta/renderea/muestra algo basado en el estado
+  - Encontrar un componente dueño en común que guarda el estado y pase la información a los hijos
+  - El componente en común o un componente más arriba puede ser el dueño del estado
+  - Si no encontrás un componente donde poner el estado, podés crear un componente nuevo que guarde el estado y agregarlo en la jerarquía de componentes por arriba de los componentes en común, pasándole la información a los hijos vía `props`.
