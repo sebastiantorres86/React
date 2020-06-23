@@ -443,7 +443,7 @@ class App extends Component {
 export default App;
 ```
 
-- *El ejemplo de esta sección está [aquí]()*
+- *El ejemplo de esta sección está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/05-componentes-set-states/first-app)*
 
 - Los componentes que tienen estado, se denominan **stateful components**.
 
