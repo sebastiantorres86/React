@@ -443,7 +443,7 @@ class App extends Component {
 export default App;
 ```
 
-- *El ejemplo de esta sección está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/05-componentes-set-states/first-app)*
+- _El ejemplo de esta sección está [aquí](https://github.com/sebastiantorres86/React/tree/master/ejemplos/05-componentes-set-states/first-app)_
 
 - Los componentes que tienen estado, se denominan **stateful components**.
 
@@ -457,3 +457,102 @@ export default App;
   - Encontrar un componente dueño en común que guarda el estado y pase la información a los hijos
   - El componente en común o un componente más arriba puede ser el dueño del estado
   - Si no encontrás un componente donde poner el estado, podés crear un componente nuevo que guarde el estado y agregarlo en la jerarquía de componentes por arriba de los componentes en común, pasándole la información a los hijos vía `props`.
+
+## Eventos
+
+- Manejar eventos con React es bastante similar a como lo hacíamos con el DOM, pero con algunas diferencias de sintáxis.
+- Todos los atributos de cada elemento (eventos incluídos) se nombran usando camelCase, en lugar de lowercase. Entonces, por ejemplo, utilizaríamos `onClick`, en lugar de `onlick`.
+- Vamos a pasar una referencia a una función como handler de un evento, en lugar de un string. Por ejemplo, vamos a tener `onClick={this.handleClick}` en lugar de `onClick="handleClick"`.
+
+#### Ejemplo
+
+```
+// El import es una función nativa de JS que me permite importar módulos o librerías
+import React, { Component } from 'react';
+
+// class y el nombre del componente (en mayúscculas)
+class App extends Component {
+  // Creamos la función constructor con el parámetro props
+  constructor(props) {
+    // Llamamos a la función super pasándole las props
+    super(props)
+
+    // Es importante agregar esta línea cuando pasamos funciones por atributos
+    // Esto es para que si dentro de la función utilizamos la palabra reservada 'this', funcione bien y sin problemas
+    // Si nos olvidamos esta línea, 'this' denstro de la función sería 'undefined'
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    alert('¡Hola Mundo!')
+  }
+
+  render() {
+    // bind
+    return (
+      <div>
+        {/* Para mostrar una propiedad del estado, siempre accedemos con 'this.state' y el nombre de la propiedad que queremos ver */}
+        <button onClick={this.handleClick}>¡Saludar!</button>
+      </div>
+    )
+  }
+}
+
+// export del componente que acabamos de crear
+// Tiene que ser el mismo nombre que el que definimos después del 'class'
+export default App
+```
+- El ejemplo de esta sección está [aquí]()
+
+- En el constructor() agregamos la linea `this.handleClick = this.handleClick.bind(this)`.
+
+- Esto es importante que este por cada función que definamos y utilicemos en eventos o atributos de nuestros elementos.
+
+- Si no agregamos esta línea y dentro de la función utilizamos `this`, entonces en ese caso `this` va a ser `undefined`.
+
+- Hay otras 2 formas de solucionar este mismo problema, que veremos más adelante.
+
+- En las funciones que ejecutamos en eventos, también podemos modificar el estado.
+
+#### Ejemplo 2
+
+```
+class App extends Component {
+  // Creamos la función constructor con el parámetro props4
+  constructor(props) {
+    // Llamamos a la función super pasándole las props
+    super(props);
+
+    // Creo el estado con una propiedad isToggleOn para saber si tengo que mostrar on u off en el texto del botón
+    this.state = {
+      isToggleOn: true
+    };
+
+    // Es importante agregar esta línea cuando pasamos funciones por atributos
+    // Esto es para que si dentro de la función utilizamos la palabra reservada 'this', funcione bien y sin problemas
+    // Si nos olvidamos esta línea, 'this' dentro de la función sería 'undefined'
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    // Cambio el estado, asignándole el contrario de lo que tenía antes
+    // Si istoggleOn es true, pasa a false
+    // Si isToggleOn es false, pasa a true
+    this.setState({
+      isToggleOn: !this.state.isToggleOn
+    })
+  }
+
+  render() {
+    return{
+      <div>
+        {/* Para mostrar una propiedad del estado, siempre accedemos con 'this.state' y el nombre de la propiedad que queremos ver */}
+        {/* En este caso, depende si la propiedad isToggleOn es true o false, muetre el texto ON u OFF */}
+        <button onClick={this.handlClick}>{this.state-isToggleOn ? 'ON' : 'OFF'}</button>
+      </div>
+    }
+  }
+}
+```
+
+*Los ejemplos completos de esta sección están [aquí](), [aquí]() y [aquí]()*
