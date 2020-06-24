@@ -1,7 +1,5 @@
-// El import es una función nativa de JS que me permite importar módulos o librerías
 import React, { Component } from "react";
 
-// class y el nombre del componente (en mayúsculas)
 class App extends Component {
   constructor() {
     super();
@@ -13,7 +11,7 @@ class App extends Component {
   }
 
   startTimer() {
-    if (this.timer == 0 && this.state.seconds > 0) {
+    if (this.timer === 0 && this.state.seconds > 0) {
       this.timer = setInterval(this.countDown, 1000);
     }
   }
@@ -35,7 +33,7 @@ class App extends Component {
     });
 
     // Check if we're at zero.
-    if (seconds == 0) {
+    if (seconds === 0) {
       clearInterval(this.timer);
       this.timer = 0;
       this.setState({
