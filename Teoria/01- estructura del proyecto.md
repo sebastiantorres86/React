@@ -17,7 +17,7 @@ En `components` van a ir todos nuestros componentes, en `assets`  aquellos archi
 
 Dentro de `components` vamos a crear una carpeta por cada componente, con nombre en `PascalCase`, como el mismo nombre del componente, y un archivo `.scss` para los estilos, también con el mismo nombre. Por ejemplo, si nuestro componente se llama `comment`, nos quedaría:
 
-```
+```terminal
 src 
   └── components
                └── Comment

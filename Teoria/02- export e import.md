@@ -10,26 +10,26 @@ Hay dos formas de exportar, **nombrada** y **por defecto**, y cada una tiene su 
 
 Para exportar por default un valor, simplemente tenemos que poner las palabras reservadas `export dafault` y el valor qaue queramos exportar. Se pueden exportar todo tipo de valores (números, string, booleanos, arrays, objetos, funciones)
 
-```
-export dafault 3
+```jsx
+export default 3
 ```
 
 También podemos exportar una variable (que en el export se reemplaza por el valor quie contiene):
 
-```
+```jsx
 const miVariable = 3
 export default miVariable
 ```
 
 O directamente todo en una misma línea:
 
-```
+```jsx
 export default miVariable = 3
 ```
 
 Cuando hacemos esto último no hay que declarar la palabra `const` o `let` de la variable. En el caso de un componente, podemos crear el componente y luego exportarlo:
 
-```
+```jsx
 const MiComponente = () => (<></>)
 
 export default MiComponente
@@ -37,13 +37,13 @@ export default MiComponente
 
 o hacer todo junto
 
-```
+```jsx
 export default MiComponente = () => (<></>)
 ```
 
 Para importar el valor exportado en otro archivo, necesitamos poner:
 
-```
+```jsx
 import miVariable from 'ruta/al/archivo'
 ```
 
@@ -55,7 +55,7 @@ La ruta al archivo puede ser una ruta absoluta (dependiendo de cómo tengamos co
 
 Para exportar un valor con nombre, tenemos que declararlo en una misma línea, junto a la declaración de la variable donde va a estar contenido, por ejemplo:
 
-```
+```jsx
 export miVariable = 3
 const moOtraVariable = 5
 export {miVariable, miOtraVariable}
@@ -65,7 +65,7 @@ A la hora de importar, tenemos dos opciones:
 
 1. Importar todo en una variable, y acceder a las distíntas variables como propiedades del objeto:
 
-```
+```jsx
 import * as misVariables from 'ruta/al/archivo'
 
 console.log(misVariables.miOtraVariable)
@@ -73,7 +73,7 @@ console.log(misVariables.miOtraVariable)
 
 2. Utilizar destructuring, para declarar las cosas que necesitamos importar y utilizarlas directamente
 
-```
+```jsx
 import {miVariable, miOtraVariable} from 'ruta/al/archivo'
 
 console.log(miVariable)
@@ -81,7 +81,7 @@ console.log(miVariable)
 
 Para esto necesitamos utilizar exactamente el mismo nombre con el que exportamos el valor, pero podemos ponerle un *alias*:
 
-```
+```jsx
 import {miVariable as miVariableConAlias} from 'ruta/al/archivo'
 
 console.log(miVariableConAlias)
@@ -89,7 +89,7 @@ console.log(miVariableConAlias)
 
 A su vez, podemos importar los valores por default y con nombre en una misma línea:
 
-```
+```jsx
 import ValorPorDefault, {miVariable, miOtraVariable} from 'ruta/al/archivo'
 ```
 
