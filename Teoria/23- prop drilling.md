@@ -193,3 +193,29 @@ const Modal = () => (
   />
 )
 ```
+
+De esta forma, podemos reutilizar el mismo componente, pasándole distintos componentes como props, lo que nos permite personalizarlo en la medida que el componente nos deja hacerlo (no podemos agregar más componentes de los que nos indica, ni modificar el orden en que se renderizan).
+
+La estrategia es sencilla. Definimos un prop dentro de nuestro componente, ese prop lo incluimos donde deseemos hacerlo, y cuando utilicemos dicho componente, como valor de dicho prop, le pasamos otro componente.
+
+### ¿Por qué esto también soluciona el problema de `props drilling`?
+
+Al especificar el componente mediante props, lo estamos definiendo en el mismo componente, de una forma a como lo hacíamos con la composición, solo que de manera un poco más limitada (o específica). En el caso anterior, por ejemplo, si hubiéramos querido definir desde `Modal` el texto de `Button`, tendríamos que haberlo pasado como prop de `FormControl`, y este tendría que haberlo pasado a su vez a `Button`. En cambio, al definirlo todo desde `Modal`, podemos saltarnos el paso intermedio y definirlo directamente en el componente.
+
+## 📄 Resumiendo
+
+Cuando tenemos que compartir un valor de un componente a otro y estos están muy distanciados en la jerarquía de componentes, tenemos que pasar ese valor mediante props por todos los componentes intermedios. Si bien con uno o dos componentes no es demasiado problema (y hasta deseable), cuando ya son más la situación se empieza a complicar:
+
+- El código se vuelve muy verborrágico y sucio
+- La lectura del mismo se dificulta
+- Seguir el camino de props es engorroso y una pérdida de tiempo
+- Dificulta pensar la lógica
+- Los componentes se enteran de datos que no les interesan y con los que no hacen nada más que pasarlos
+- La cantidad de props por componente se incrementa mucho
+- Los componentes quedan muy acoplados y con una jerarquía muy rígida, por lo que sacarlos o incluir nuevos en el medio se vuelve difícil
+
+Para solucionar esto, tenemos algunas técnicas:
+
+La primera se llama **composición**, y consiste en utilizar el prop `children`. Este es un prop específico de React, que se llena con todos los componentes hijos que se incluyen dentro de las etiquetas de apertura y cierre de componente. De esta forma, podemos darle la opción a quien utiliza nuestro componente de "componerlo" con otros componentes anidados, cualesquieran sean y de la cantidad que sean.
+
+La otra opción es una forma mpas limitada de composición, que consiste en pasar componentes como props. De esta forma, ya pasamos el componente con sus propios props, y nos ahorramos tener que hacer el puente de dichos props entre uno y otro componente.
